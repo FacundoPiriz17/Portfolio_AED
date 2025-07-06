@@ -1,0 +1,45 @@
+UNION
+Precondiciones:
+Se reciben dos listas enlazadas simples (lista1 y lista2) con nodos
+Cada nodo tiene una etiqueta
+
+Postcondiciones:
+Devuelve 1 Lista Enlazada con los elementos de la Lista 1 y de la Lista 2, sin repetirse y odrenadamente
+
+Lenguaje Natural:
+ecibo dos listas: Lista1 y Lista2, y creo una nuevaLista vacía.
+Primero recorro todos los elementos de la Lista1, y por cada uno de ellos creo una copia (clonado) y lo inserto en la nuevaLista.
+Luego hago lo mismo con todos los elementos de la Lista2: también los voy clonando y los agrego a la nuevaLista.
+Este método no controla si ya hay elementos repetidos, pero eso lo controlo al momento de insertar
+Finalmente, retorna una lista con todos los elementos de ambas listas.
+
+
+Seudocodigo:
+Comienzo(lista1, lista2)
+    nuevaLista
+    ele0 = lista1.primero
+
+    mientras (ele0 no esté vacío)
+        clonado = nuevo nodo
+        clonado.dato = ele0.dato
+        clonado.etiqueta = ele0.etiqueta
+        nuevaLista.insertar(clonado)
+        ele0 = ele0.sig
+    FinMientras
+
+    ele1 = lista2.primero
+    mientras (ele1 no esté vacío)
+        clonado = nuevo nodo
+        clonado.dato = ele1.dato
+        clonado.etiqueta = ele1.etiqueta
+        nuevaLista.insertar(clonado)
+        ele1 = ele1.sig
+    FinMientras
+
+    devolver nuevaLista
+Fin
+
+Analisis del orden del tiempo de ejecucion:
+Recorro todos los elementos de la Lista1 O(m) y de la Lista2 O(n), y al insertar en el peor caso es O(k),
+O(m+n+k)
+

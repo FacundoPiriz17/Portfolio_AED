@@ -1,0 +1,37 @@
+INTERSECCION
+Precondiciones:
+Recibe 2 Listas enlazadas (Lista1 y Lista2) ordenadas ascendentemente
+
+Poscondiciones:
+Retornar una nuevaLista unicamnete con los elementos en comun entre Lista2 y Lista 1
+sin repeticiones
+
+Lenguaje Natural:
+Recibo dos listas: Lista1 y Lista2, y creo una nuevaLista vacía.
+Luego recorro todos los elementos de la Lista2, y por cada uno de ellos pregunto si ese elemento (usando su etiqueta) existe también en la Lista1.
+Si lo encuentro en Lista1, significa que ese alumno está en ambas listas, así que clono ese nodo y lo agrego a la nuevaLista.
+Este método no verifica si ese elemento ya fue agregado antes a la nuevaLista, pero esto lo verifico en el metodo insertar.
+Al final, el método retorna una lista con los elementos que están en común entre ambas listas.
+Seudocodigo
+Comienzo(lista1, lista2)
+    nuevaLista
+    ele0 = lista2.primero
+
+    mientras (ele0 no esté vacío)
+        clonado = nuevo nodo
+        clonado.dato = ele0.dato
+        clonado.etiqueta = ele0.etiqueta
+
+        si (lista1.buscar(ele0.etiqueta) no es nulo)
+            nuevaLista.insertar(clonado)
+        FinSi
+
+        ele0 = ele0.sig
+    FinMientras
+
+    devolver nuevaLista
+Fin
+
+Analisis del orden del tiempo de ejecucion:
+Recorro todos los elementos de la Lista1 O(m) por cada elemento busca en la otra O(n), si lo encuentra lo inserta
+O(k). Entonces O(m*n+k)
