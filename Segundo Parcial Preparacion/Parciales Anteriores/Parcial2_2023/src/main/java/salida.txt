@@ -1,0 +1,4 @@
+¿Están conectados nodoX y nodoY?: No
+Mayor medición:
+Fecha: 1700519108
+Valor: 999.6713884961163
