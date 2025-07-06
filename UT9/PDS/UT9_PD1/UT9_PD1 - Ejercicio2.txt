@@ -1,0 +1,33 @@
+Ejercicio2:
+
+6) Probar la ejecución con vectores con datos ascendentes, descendentes y aleatorios. Desarrollar casos de test
+para verificar el correcto funcionamiento.
+Insertion Sort:
+Mejor caso: O(n)
+Peor caso: O(n²)
+Caso promedio (vector aleatorio): O(n²)
+
+Bubble Sort:
+Mejor caso: O(n²)
+Peor caso: O(n²)
+Caso promedio: O(n²)
+
+ShellSort:
+Mejor Caso: O(n log n)
+Peor Caso: O(n²)
+Caso promedio: Por lo general, mejor que Insertion y Bubble
+
+7) ¿Cuál es el tiempo de ejecución para cada tipo de vector (tamaño y orden)?
+Caso del ejercicio:
+        VectorDescendente:
+                Insertion: O(n²) - Siendo el peor caso
+                Bubble: O(n²) - Siendo el peor caso
+                ShellSort: O(n log n)
+        VectorAscendente:
+                Insertion: O(n) - Siendo el mejor caso
+                Burbuja: O(n²)
+                ShellSort: O(n log n)
+        VectorAleatorio:
+                Insertion: O(n²)- promedio
+                Burbuja: O(n²)- promedio
+                ShellSort: O(n log n)

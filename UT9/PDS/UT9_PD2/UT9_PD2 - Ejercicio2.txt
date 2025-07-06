@@ -1,0 +1,105 @@
+Ejercicio1:
+¿Queda ordenado antes de la última iteración?
+Sí, el conjunto está ordenado ya al final de la Iteración 6, pero el algoritmo sigue ejecutando hasta completar todas las iteraciones.
+
+Ejercicio2:
+¿Puede mejorarse el algoritmo de Burbuja?
+Sí. La versión básica de Burbuja siempre realiza n-1 pasadas, incluso si el arreglo ya está ordenado. Esto es ineficiente.
+
+Mejora 1: Burbuja con bandera de intercambio
+Se agrega una variable booleana que indica si se realizaron intercambios. Si en una pasada no se realiza ningún intercambio, se termina antes.
+
+Pseudocódigo:
+func burbujaMejorada(A[0..n-1])
+    repetir
+        intercambiado ← falso
+        para i desde 0 hasta n-2
+            si A[i] > A[i+1]
+                intercambiar A[i] y A[i+1]
+                intercambiado ← verdadero
+        n ← n - 1
+    hasta que no se haya intercambiado nada
+
+Mejora 2: Burbuja con límite de última permutación
+Además de la bandera, se registra la última posición en la que hubo un intercambio. Esto evita recorrer toda la parte ya ordenada.
+
+Pseudocódigo:
+func burbujaConLimite(A[0..n-1])
+    repetir
+        ultIntercambio ← 0
+        para i desde 0 hasta n-2
+            si A[i] > A[i+1]
+                intercambiar A[i] y A[i+1]
+                ultIntercambio ← i+1
+        n ← ultIntercambio
+    hasta que n <= 1
+
+Ejercicio3:
+3.1 Burbuja con bandera de intercambio
+Solo mostramos las iteraciones que efectivamente se ejecutan:
+
+Inicial	Iteración 1	Iteración 2	Iteración 3	Iteración 4	Iteración 5	Iteración 6
+44	44		12		12		12		12		6
+55	12		42		18		18		6		12
+12	42		18		6		6		12		18
+42	94		6		12		12		18		42
+94	18		12		18		18		42		55
+18	6		18		42		42		55		67
+6	67		67		55		55		67		94
+67	94		94		94		94		94		94
+La bandera corta el algoritmo después de la Iteración 6. Ahorra una iteración.
+
+3.2 Burbuja con límite de última permutación
+Este método reduce aún más las comparaciones. Se salta las partes ordenadas.
+
+Iteración	Último intercambio
+1		posición 6
+2		posición 5
+3		posición 4
+4		posición 3
+5		posición 2
+6		posición 1
+
+- Se ahorra parte de cada pasada, y en muchos casos el algoritmo finaliza más rápido que la versión con bandera simple.
+
+Ejercicio4:
+Cocktail Sort (Shakersort)
+Descripción: Es una mejora del algoritmo de burbuja tradicional, con recorrido bidireccional. En cada ciclo, el algoritmo avanza de izquierda a derecha para "empujar" los elementos grandes hacia el final y luego retrocede de derecha a izquierda para "empujar" los elementos pequeños hacia el inicio. Esto permite que los valores se acomoden más rápidamente cuando hay elementos desordenados tanto al principio como al final del arreglo.
+
+Pseudocódigo:
+func cocktailSort(A[0..n-1])
+    inicio ← 0
+    fin ← n - 1
+    repetir
+        intercambiado ← falso
+
+        // Recorrido hacia la derecha
+        para i desde inicio hasta fin - 1
+            si A[i] > A[i + 1]
+                intercambiar A[i] y A[i + 1]
+                intercambiado ← verdadero
+        fin ← fin - 1
+
+        // Recorrido hacia la izquierda
+        para i desde fin - 1 hasta inicio
+            si A[i] > A[i + 1]
+                intercambiar A[i] y A[i + 1]
+                intercambiado ← verdadero
+        inicio ← inicio + 1
+
+    hasta que intercambiado = falso
+
+Aplicación paso a paso
+Arreglo inicial: 44, 55, 12, 42, 94, 18, 6, 67
+
+Iteración 1 – Izquierda a derecha: 55 > 12 → intercambio 94 > 18 → intercambio 94 > 6 → intercambio 94 > 67 intercambio Resultado parcial: 44, 12, 42, 55, 18, 6, 67, 94
+
+Iteración 1 – Derecha a izquierda: 18 < 6 → intercambio 55 > 6 → intercambio 42 > 6 → intercambio Resultado parcial: 44, 12, 6, 42, 18, 55, 67, 94
+
+Iteración 2 – Izquierda a derecha: 44 > 12 → intercambio 44 > 6 → intercambio Resultado parcial: 12, 6, 42, 18, 44, 55, 67, 94
+
+Iteración 2 – Derecha a izquierda: Pequeños intercambios hasta llegar a: 6, 12, 18, 42, 44, 55, 67, 94
+
+Resultado final: 6, 12, 18, 42, 44, 55, 67, 94
+
+Observación final: Este algoritmo es más eficiente que la burbuja tradicional cuando hay valores pequeños cerca del final o valores grandes cerca del inicio del arreglo.

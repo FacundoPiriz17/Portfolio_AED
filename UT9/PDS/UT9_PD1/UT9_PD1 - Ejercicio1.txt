@@ -1,0 +1,76 @@
+Ejercicio1:
+1) ¿Cómo se genera un vector monótonamente ascendente?
+	Se genera en el método generarDatosAscendentes().
+	El vector se llena con números enteros crecientes desde 0 hasta TAMANIO_MAX - 1, en orden:
+
+	for (int i = 0; i < TAMANIO_MAX; i++) {
+    		copiaAscendente[i] = i;
+	}
+	Ejemplo si TAMANIO_MAX = 5:
+	[0, 1, 2, 3, 4]
+	Es estrictamente monótonamente ascendente.
+
+2) ¿Cómo se genera un vector monótonamente descendente?
+	Se genera en el método generarDatosDescendentes().
+	El vector se llena con los valores desde TAMANIO_MAX hasta 1 (no desde TAMANIO_MAX - 1, ojo):
+
+	for (int i = 0; i < TAMANIO_MAX; i++) {
+    		copiaDescendente[i] = TAMANIO_MAX - i;
+	}
+	Ejemplo si TAMANIO_MAX = 5:
+	[5, 4, 3, 2, 1]
+	Es estrictamente monótonamente descendente.
+
+3) ¿Cómo se genera un vector con valores aleatorios? ¿pueden existir claves repetidas? ¿Cuál es el orden del tiempo de ejecución de este método?
+	Se genera en el método generarDatosAleatorios().
+
+	El algoritmo elige posiciones aleatorias únicas para poner valores entre 0 y TAMANIO_MAX - 1, asegurando que no se repitan claves (ni valores ni posiciones repetidas).
+
+	Usa un boolean[] datosUtilizados para marcar qué posiciones ya se usaron.
+
+	Cada valor i se pone en una posición aleatoria j que aún no fue usada.
+
+	Ejemplo de posible salida: [3, 1, 4, 0, 2]
+	(Son los números del 0 al 4 desordenados al azar)
+
+	- No hay claves repetidas.
+
+	- Orden del tiempo de ejecución: En el peor caso, puede recorrer varias veces el array hasta encontrar una posición libre.
+
+	Aun así, el tiempo es O(n) donde n = TAMANIO_MAX, ya que cada valor se coloca una sola vez.
+
+4) ¿Cuántos elementos contiene el vector de datos generado? ¿Cómo se puede modificar esta clase para que la cantidad de elementos del vector sea parametrizable?
+	Actualmente, el tamaño del vector está fijado por la constante:
+
+	private static int TAMANIO_MAX = 5;
+	
+	Genera 5 elementos.
+
+	Para parametrizar el tamaño del vector, se podría eliminar TAMANIO_MAX como constante.
+	Agregarlo como parámetro en el constructor o en los métodos.
+
+	Ejemplo de modificación en el método:
+
+	public int[] generarDatosAscendentes(int tamanio) {
+    		int[] copiaAscendente = new int[tamanio];
+    		for (int i = 0; i < tamanio; i++) {
+        		copiaAscendente[i] = i;
+    		}
+    		return copiaAscendente;
+	}
+
+	Así, el tamaño se define dinámicamente según el valor que se le pase al método.
+
+5) ¿Cómo podemos verificar que un conjunto está ordenado? ¿Cuál sería el orden del tiempo de ejecución de un algoritmo que lo haga?
+	Para verificar que un vector está ordenado de forma ascendente, se puede recorrerlo comparando cada elemento con el siguiente:
+
+	public boolean estaOrdenadoAscendente(int[] arreglo) {
+    		for (int i = 0; i < arreglo.length - 1; i++) {
+        		if (arreglo[i] > arreglo[i + 1]) {
+            			return false;
+        		}
+    		}
+    		return true;
+	}
+
+	El algoritmo recorre todos los elementos una sola vez, por lo que seria O(n), siendo n el tamaño del vector.

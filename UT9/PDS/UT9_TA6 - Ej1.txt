@@ -1,0 +1,43 @@
+Ejercicio1:
+Los dos algoritmos son:
+
+Insertar: Consiste en agregar un nuevo elemento al final del árbol (o vector) y luego restaurar la propiedad de APO (usualmente un min-heap o max-heap, pero siempre es mejor un max-heap) mediante una operación de flotar hacia arriba o up-heapify.
+
+SuprimeMínimo: Se elimina el elemento de la raíz (mínimo en min-heap), se reemplaza con el último elemento del árbol/vector, y se restaura la propiedad de APO mediante una operación de hundir hacia abajo o down-heapify.
+
+Operaciones básicas involucradas:
+- Comparaciones entre claves.
+- Intercambio de elementos (swap).
+- Cálculo de posiciones de padre o hijo.
+- Mantenimiento de la propiedad de heap.
+
+Ejercicio2:
+En un árbol binario con punteros a hijos/parent, la altura del árbol es:
+En el peor caso: log₂(n) si el árbol está balanceado (como un heap).
+
+Entonces:
+
+Insertar: Se ubica el nuevo nodo como la hoja más a la izquierda del nivel más bajo y se lo hace subir (up-heap) hasta restaurar el orden -> O(log n).
+
+SuprimeMínimo: Se reemplaza la raíz con la última hoja y se la hace bajar (down-heap) ⇒ O(log N).
+
+Conclusión:
+Tanto insertar como suprimeMinimo tienen orden O(log n) en un APO representado como árbol binario con enlaces.
+
+Ejercicio3:
+En esta representación (que es la estándar en Heapsort), el APO se almacena en un vector donde:
+
+Para un nodo en posición i:
+Su padre está en la posición i / 2 (división entera).
+Su hijo izquierdo está en 2 * i.
+Su hijo derecho en 2 * i + 1.
+Esta representación es más eficiente porque no requiere punteros: el recorrido y acceso a nodos es más directo.
+
+Entonces:
+
+Insertar: Se coloca el nuevo elemento en la posición n + 1 y se hace up-heapify usando el índice del padre O(log n).
+
+SuprimeMínimo: Se reemplaza el elemento en la posición 1 con el último del vector (n), y se realiza down-heapify -> O(log n).
+
+Conclusión:
+También en esta representación, ambas operaciones tienen orden O(log n), pero la implementación es más eficiente en práctica por evitar el uso de punteros y aprovechar el acceso aleatorio en arreglos.

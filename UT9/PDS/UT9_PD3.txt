@@ -1,0 +1,155 @@
+Ejercicio1:
+Resumen de la condición que se cumple durante la ejecución del algoritmo Quicksort:
+
+Durante todo el proceso del algoritmo Quicksort, se mantiene la siguiente invariante:
+
+	Para cualquier pivote seleccionado, todos los elementos a su izquierda son menores o iguales al pivote, y todos los elementos a su derecha son mayores o iguales al pivote.
+
+Esta condición se asegura en cada partición y se mantiene recursivamente para los subconjuntos resultantes.
+
+Ejercicio2:
+Conjunto inicial:
+44 - 55 - 12 - 42 - 94 - 18 - 6 - 67
+
+Función encuentraPivote: elige el mayor de los dos primeros elementos como pivote.
+En este caso, entre 44 y 55 → pivote = 55
+
+A continuación, se describe paso a paso cómo avanza Quicksort utilizando ese criterio. La versión usada es la de la presentación de la Cátedra, y se asume que la partición es in-place (tipo Lomuto o similar).
+
+Llamada 1: quicksort(0,7)
+Pivote: 55
+
+Se reordenan los elementos → después de la partición, el arreglo queda (ejemplo de resultado típico):
+44 - 12 - 42 - 18 - 6 - 55 - 94 - 67
+
+Índice del pivote final: 5
+
+Se realizan dos llamadas recursivas: quicksort(0,4) y quicksort(6,7)
+
+Llamada 2: quicksort(0,4)
+Pivote: 44
+
+Reordenación: 12 - 18 - 6 - 42 - 44
+
+Índice final del pivote: 4
+
+Llamadas recursivas: quicksort(0,3)
+
+Llamada 3: quicksort(0,3)
+Pivote: 12
+
+Reordenación: 6 - 12 - 18 - 42
+
+Índice final del pivote: 1
+
+Llamadas: quicksort(0,0) y quicksort(2,3)
+
+Llamada 4: quicksort(2,3)
+Pivote: 18
+
+Resultado: 18 - 42 (sin cambios)
+
+Índice final del pivote: 2
+
+Llamadas: quicksort(2,1) y quicksort(3,3)
+
+Llamada 5: quicksort(6,7)
+Pivote: 94
+
+Reordenación: 67 - 94
+
+Índice final del pivote: 7
+
+Llamadas: quicksort(6,6)
+
+Resultado final (ordenado):
+6 - 12 - 18 - 42 - 44 - 55 - 67 - 94
+
+Respuestas:
+¿Cuántas llamadas totales se realizan a Quicksort (contando la inicial)?
+8 llamadas en total:
+quicksort(0,7), (0,4), (0,3), (0,0), (2,3), (2,1), (3,3), (6,7), (6,6) → (Nota: muchas devuelven sin hacer nada si el rango es inválido, pero cuentan como llamadas)
+
+¿Cuál es el máximo nivel de profundidad recursiva alcanzado?
+La profundidad máxima es 4, correspondiente a la rama:
+quicksort(0,7) → quicksort(0,4) → quicksort(0,3) → quicksort(0,0)
+
+¿Cómo podrías medir este nivel en una implementación en JAVA?
+Se puede usar una variable estática profundidadActual que se incrementa al ingresar a una llamada recursiva y decrementa al salir. Otra variable maxProfundidad guarda el valor máximo alcanzado:
+
+static int profundidadActual = 0;
+static int maxProfundidad = 0;
+
+public static void quicksort(int[] arr, int izq, int der) {
+    if (izq < der) {
+        profundidadActual++;
+        if (profundidadActual > maxProfundidad) {
+            maxProfundidad = profundidadActual;
+        }
+
+        int pivote = particionar(arr, izq, der);
+        quicksort(arr, izq, pivote - 1);
+        quicksort(arr, pivote + 1, der);
+
+        profundidadActual--;
+    }
+}
+
+Ejercicio3:
+Características principales:
+1) Partición en tres partes (Three-Way Partitioning)
+Divide el arreglo en tres zonas:
+- Menores al pivote
+- Iguales al pivote
+- Mayores al pivote
+Esto mejora el rendimiento en presencia de muchos valores duplicados.
+
+2) Mejor manejo de claves repetidas:
+Reduce el número de comparaciones redundantes con claves repetidas.
+- Mejora sustancial en conjuntos con alta duplicación.
+
+3) Orden de tiempo de ejecución:
+- Mejor caso: O(n log n)
+- Promedio: O(n log n)
+- Peor caso: O(n²), pero con técnicas como el pivote aleatorio o mediana de tres, la probabilidad se reduce drásticamente.
+
+4) Rendimiento en diferentes tipos de datos:
+- Datos aleatorios: rendimiento óptimo
+- Datos ordenados o casi ordenados: mejora sustancial respecto al Quicksort clásico
+- Datos con muchos duplicados: evita el colapso de rendimiento
+
+5) No es estable:
+La versión clásica de Quicksort (ni su variante mejorada) no es estable, es decir, puede cambiar el orden relativo de elementos iguales.
+
+Ejercicio4:
+1. Análisis detallado del orden de ejecución:
+Mejor caso:
+El pivote divide siempre al conjunto en dos mitades iguales
+→ T(n) = 2T(n/2) + O(n)
+→ Tiempo: O(n log n)
+
+Peor caso:
+El pivote es siempre el menor o el mayor elemento
+→ T(n) = T(n-1) + O(n)
+→ Tiempo: O(n²)
+
+Promedio:
+Con pivote aleatorio o mediana de tres
+→ Tiempo: O(n log n)
+
+¿Cuál es la probabilidad de que se presente el peor caso, si la distribución es uniforme?
+Si las claves están distribuidas uniformemente y el pivote se selecciona aleatoriamente, la probabilidad de elegir el menor o mayor elemento como pivote es 1/n en cada llamada.
+
+Por tanto, la probabilidad total de que ocurra el peor caso en todas las llamadas es muy baja:
+P = (1/n) × (1/(n-1)) × ... × (1/2) = 1/n!
+→ Muy poco probable para n ≥ 10
+
+2. ¿Cómo se puede modificar el algoritmo para cambiar a métodos más sencillos en conjuntos pequeños?
+Una estrategia común es usar Inserción Directa cuando el tamaño del subarreglo es pequeño (por ejemplo, menor a 10):
+
+if (der - izq <= UMBRAL) {
+    insercionDirecta(arr, izq, der);
+    return;
+}
+
+Esto se debe a que la sobrecarga recursiva de Quicksort no compensa en conjuntos pequeños, donde métodos directos son más rápidos y simples.

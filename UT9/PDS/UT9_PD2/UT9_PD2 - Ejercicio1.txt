@@ -1,0 +1,114 @@
+Ejercicio1:
+1) A lo largo de los años, varios investigadores han propuesto secuencias de incrementos con el objetivo de mejorar el rendimiento de Shellsort. Estas son las tres secuencias reconocidas en la literatura:
+
+1.1 Sedgewick (1982)
+Secuencia propuesta:
+hsubk = 4^k + 3 * 2^k-1 + 1
+
+Ejemplo de los primeros incrementos: 1, 5, 19, 41, 109, etc etc.
+
+Ventajas:
+- Reduce el número de comparaciones.
+- Mejor rendimiento en arreglos grandes.
+- Tiempo de ejecución aproximado: O(n^{7/6}).
+
+Implementación en Java:
+
+List<Integer> sedgewickSequence(int n) {
+    List<Integer> gaps = new ArrayList<>();
+    int k = 0;
+    int gap;
+    do {
+        gap = (int) (Math.pow(4, k) + 3 * Math.pow(2, k - 1) + 1);
+        if (gap < n) gaps.add(0, gap);
+        k++;
+    } while (gap < n);
+    return gaps;
+}
+
+1.2 Tokuda (1992)
+Secuencia propuesta:
+hsubk = (9^k - 4^k)/(5 * 4^k-1)
+Ejemplo: 1, 4, 9, 20, 46, 103, 233, 525, 1182, etc etc.
+
+Ventajas:
+- Menor número de asignaciones.
+- Muy efectiva para tamaños de entrada intermedios.
+- Tiempo de ejecución: O(n^{1.4})
+
+Implementación:
+
+List<Integer> tokudaSequence(int n) {
+    List<Integer> gaps = new ArrayList<>();
+    int k = 1;
+    while (true) {
+        int gap = (int) Math.ceil((Math.pow(9, k) - Math.pow(4, k)) / (5 * Math.pow(4, k - 1)));
+        if (gap >= n) break;
+        gaps.add(0, gap);
+        k++;
+    }
+    return gaps;
+}
+
+1.3 Gonnet & Baeza-Yates (1991)
+Secuencia propuesta:
+hsubk = n / 2^k
+Donde n es el tamaño del arreglo. Ejemplo para n = 12: 6,3,1
+
+Ventajas:
+- Fácil implementación.
+- Buena eficiencia para tamaños pequeños a moderados.
+- Tiempo de ejecución: O(n \cdot \log^2 n)
+
+Implementación:
+
+List<Integer> gonnetSequence(int n) {
+    List<Integer> gaps = new ArrayList<>();
+    for (int k = 1; n / Math.pow(2, k) >= 1; k++) {
+        gaps.add((int) Math.floor(n / Math.pow(2, k)));
+    }
+    return gaps;
+}
+
+Ejercicio2:
+Análisis del orden del tiempo de ejecución
+
+El tiempo de ejecución de Shellsort depende críticamente de la secuencia de incrementos. En general:
+- Con incrementos arbitrarios: O(n²)
+- Con secuencias eficientes (como las vistas arriba): puede llegar hasta O(n \cdot (\log n)^2) o incluso O(n^{1.25})
+- Factores que influyen en el rendimiento:
+
+Tamaño del arreglo
+- Cantidad y distribución de los incrementos
+- Cantidad de elementos desordenados
+
+La eficiencia teórica sigue siendo compleja de modelar porque depende del patrón de los datos, pero experimentalmente las secuencias de Sedgewick y Tokuda suelen tener mejores resultados.
+
+Ejercicio3:
+Datos iniciales: 256, 458, 655, 298, 043, 648, 778, 621, 655, 019, 124, 847
+
+Para cada secuencia se muestran los pasos principales del ordenamiento. Por motivos de claridad, solo se incluyen algunos pasos representativos por secuencia. Si se requiere un análisis más detallado, los pasos intermedios pueden expandirse.
+
+3.1. Secuencia de Sedgewick: (109, 41, 19, 5, 1) Con h = 5, se ordenan subgrupos como:
+
+[256, 648] → ya está ordenado
+
+[458, 778] → ya está ordenado
+
+[655, 621] → se invierte → [621, 655] ... Finalmente, con h = 1, Shellsort se comporta como un ordenamiento por inserción directa.
+
+Resultado final: 019, 043, 124, 256, 298, 458, 621, 648, 655, 655, 778, 847
+
+3.2. Secuencia de Tokuda: (103, 46, 20, 9, 4, 1) Con h = 4, se forman subgrupos como:
+
+[256, 043, 655]
+
+[458, 648, 019] ... y se realizan los reordenamientos internos correspondientes en cada subsecuencia. Luego, con h = 1, se ejecuta el ordenamiento fino final.
+
+Resultado final (igual): 019, 043, 124, 256, 298, 458, 621, 648, 655, 655, 778, 847
+
+3.3. Secuencia de Gonnet-Baeza-Yates: (6, 3, 1) Con h = 6, se comparan y ordenan elementos como:
+
+[256, 621], [458, 655], ... Luego con h = 3 se trabaja sobre grupos como [256, 043, 655], y finalmente con h = 1 se aplica inserción directa.
+
+Resultado final (también coincide): 019, 043, 124, 256, 298, 458, 621, 648, 655, 655, 778, 847
