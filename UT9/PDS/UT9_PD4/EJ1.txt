@@ -1,0 +1,25 @@
+Mis hallazgos clave son los siguientes:
+
+- Secuencia de Ciura:
+La secuencia más usada en la práctica es de Marcin Ciura (2001):
+1, 4, 10, 23, 57, 132, 301, 701. Para gapes mayores, se recomienda extenderla multiplicando por ~2.25 y redondeando hacia abajo.
+
+-Secuencia de Tokuda:
+De manera recursiva se podría definir como:
+hₖ = 2.25 ⋅ hₖ-₁ + 1, h₁ = 1
+Se recomienda para aplicaciones prácticas.
+
+- Optimización moderna:
+ariante γ‑secuencial con γ≈2.2436, con gaps:
+1, 4, 9, 20, 45, 102, 230, ..., muestra mejora de comparaciones respecto a Tokuda.
+
+Uso de funciones paramétricas con optimización por grid-search que superan a Tokuda en tiempos de ejecución y comparaciones.
+
+Aspectos teóricos:
+Secuencias basadas en números 2‑suaves (Pratt, mezcla de 2^p 3^q) tienen complejidad Θ(N log²N)
+Se recomienda que los ratios entre gaps estén cerca de 2.2–2.25, con preferencia por gaps impares y coprimos entre sí.
+
+Recomendación práctica
+Para arrays usuales (<10⁶ elem.), usar Ciura y extender con hₖ₊₁ = ⌊2.25 hₖ⌋.
+Para arrays más grandes, considerar Tokuda o la mejora γ de Lee.
+Para experimentar, implementar la variante γ y medir comparaciones/tiempos en tu ShellSort.

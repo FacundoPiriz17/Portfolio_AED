@@ -1,0 +1,60 @@
+Pivote aleatorio (Random Pivot):
+Selección uniforme de un elemento. Funciona bien en promedio, pero no garantiza resultados determinísticos.
+
+Mediana de tres (Median-of-3):
+Selecciona el pivote como la mediana de los elementos en inicio, centro y fin. Muy popular por prevenir casos degenerados de listas ya ordenadas.
+
+Ninther:
+Mediana de 3 medianas de triples (tres median-of-3), recomendado en arrays grandes.
+
+Pseudomediana de nueve:
+Usada en bibliotecas estándar (C, Java), sampleo de 9 y mediana de medianas.
+
+Dual-Pivot (QuickSort dual):
+Variante usada en Java 7 para arrays de primitivos (Yaroslavskiy), mejora tiempo promedio.
+
+Median-of-Medians:
+Garantiza O(N log N) en peor caso, muy costoso, por eso usado solo como fallback.
+
+Implementación en bibliotecas modernas:
+
+Java: desde Java 7 usa dual pivot por Yaroslavskiy para tipos primitivos; objetos usan TimSort.
+
+C++ (STL): usa IntroSort: QuickSort con Median-of-3 y fallback a HeapSort para garantizar O(n log n).
+
+Python: list.sort() usa Timsort, no QuickSort; el módulo quicksort usa pivote aleatorio o median-of-3 según la implementación.
+
+Referencias:
+
+Rada­vičius, R., & Baranauskas, J. (2013). An empirical study of the gap sequences for Shell sort. Informatica, 24(1), 105–120.
+https://www.journals.vu.lt/informatica/article/view/14899
+
+Lee, M. (2021). An optimized gap sequence for Shell sort. arXiv preprint arXiv:2112.11112.
+https://arxiv.org/abs/2112.11112
+
+Skean, J. D., Hoereth, B., & Staudenmaier, M. (2023). Optimizing Shellsort Gap Sequences via Search Algorithms. arXiv preprint arXiv:2301.00316.
+https://arxiv.org/abs/2301.00316
+
+Bentley, J. L., & McIlroy, M. D. (1993). Engineering a sort function. Software: Practice and Experience, 23(11), 1249–1265.
+https://doi.org/10.1002/spe.4380231105
+
+Wikipedia contributors. (2024). Shellsort. Wikipedia.
+https://en.wikipedia.org/wiki/Shellsort
+
+Wikipedia contributors. (2024). Quicksort. Wikipedia.
+https://en.wikipedia.org/wiki/Quicksort
+
+Wikipedia contributors. (2024). Introselect. Wikipedia.
+https://en.wikipedia.org/wiki/Introselect
+
+Stack Overflow contributors. (n.d.). Fastest gap sequence for Shell sort. Stack Overflow.
+https://stackoverflow.com/questions/2539545/fastest-gap-sequence-for-shell-sort
+
+MaxG Coding. (2021). Quicksort Pivot Selection: How It Affects Performance.
+https://maxgcoding.com/quicksort-pivot-selection
+
+Sedgewick, R. (n.d.). Algorithms, 4th Edition.
+https://sedgewick.io
+
+ResearchGate contributors. (n.d.). Publicaciones sobre algoritmos de ordenamiento y eficiencia. ResearchGate.
+https://www.researchgate.net
